@@ -1,0 +1,17 @@
+machine:
+    services:
+        - docker
+
+dependencies:
+    override:
+        - docker build --rm=false -t jkulak/docker-hub-proxy .
+test:
+    override:
+        - docker run jkulak/docker-hub-proxy echo "Tests!"
+
+deployment:
+    production:
+        branch: master
+        commands:
+            - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWORD
+            - ./scripts/docker-deploy.sh
