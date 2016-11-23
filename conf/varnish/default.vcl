@@ -16,27 +16,49 @@ vcl 4.0;
 
 # Default backend definition. Set this to point to your content server.
 backend default {
+
+    .host = "172.17.0.3";
+    .port = "80";
+}
+
+# labs.webascrazy.net backend
+backend labs_web {
+
     .host = "172.17.0.2";
     .port = "80";
 }
 
+# lol-bot.webascrazy.net backend
+backend lol_slack_bot_web {
+
+    .host = "172.17.0.3";
+    .port = "8081";
+}
+
 sub vcl_recv {
-    # Happens before we check if we have this in cache already.
-    #
-    # Typically you clean up the request here, removing cookies you don't need,
-    # rewriting the request, etc.
+
+    if (req.http.host ~ "^labs\.webascrazy\.net") {
+        set req.backend_hint = labs_web;
+    } else if (req.http.host ~ "^lol-bot\.webascrazy\.net") {
+        set req.backend_hint = lol_slack_bot_web;
+    }
+
 }
 
 sub vcl_backend_response {
-    # Happens after we have read the response headers from the backend.
-    #
-    # Here you clean the response headers, removing silly Set-Cookie headers
-    # and other mistakes your backend does.
+
 }
 
 sub vcl_deliver {
-    # Happens when we have all the pieces we need, and are about to send the
-    # response to the client.
-    #
-    # You can do accounting or modifying the final object here.
+
+    if (obj.hits > 0) {
+           set resp.http.X-Cache = "HIT";
+    } else {
+           set resp.http.X-Cache = "MISS";
+    }
+
+    if (req.url ~ "(\?|\&)debug=") {
+        set resp.http.varnish-backend = req.backend_hint;
+        set resp.http.varnish-req-url = req.url;
+    }
 }
