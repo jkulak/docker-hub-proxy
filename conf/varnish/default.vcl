@@ -30,7 +30,7 @@ backend www_webascrazy_net {
 # socketorior.webascrazy.net backend
 backend socketorior_web {
 
-    .host = "127.17.0.7";
+    .host = "172.17.0.7";
     .port = "8080";
 }
 
