@@ -27,6 +27,13 @@ backend www_webascrazy_net {
     .port = "80";
 }
 
+# socketorior.webascrazy.net backend
+backend socketorior_web {
+
+    .host = "127.17.0.7";
+    .port = "8080";
+}
+
 sub vcl_recv {
 
     unset req.http.Cookie;
@@ -37,6 +44,8 @@ sub vcl_recv {
         set req.backend_hint = lol_slack_bot_web;
     } else if (req.http.host ~ "^webascrazy\.net") {
         set req.backend_hint = www_webascrazy_net;
+    } else if (req.http.host ~ "^lol-bot\.webascrazy\.net") {
+        set req.backend_hint = socketorior_web;
     } else {
         set req.backend_hint = default;
     }
