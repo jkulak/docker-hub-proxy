@@ -20,8 +20,8 @@ backend lol_slack_bot_web {
     .port = "8081";
 }
 
-# www.webascrazy.net backend
-backend www_webascrazy_net {
+# v1.webascrazy.net backend
+backend v1_webascrazy_net {
 
     .host = "172.17.0.5";
     .port = "80";
@@ -42,8 +42,8 @@ sub vcl_recv {
         set req.backend_hint = labs_web;
     } else if (req.http.host ~ "^lol-bot\.webascrazy\.net") {
         set req.backend_hint = lol_slack_bot_web;
-    } else if (req.http.host ~ "^webascrazy\.net") {
-        set req.backend_hint = www_webascrazy_net;
+    } else if (req.http.host ~ "^v1\.webascrazy\.net") {
+        set req.backend_hint = v1_webascrazy_net;
     } else if (req.http.host ~ "^socketorior\.webascrazy\.net") {
         set req.backend_hint = socketorior_web;
     } else {
