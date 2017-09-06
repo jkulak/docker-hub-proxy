@@ -34,6 +34,13 @@ backend socketorior_web {
     .port = "8080";
 }
 
+# rox.webascrazy.net backend
+backend rox_web {
+
+    .host = "172.17.0.8";
+    .port = "8080";
+}
+
 sub vcl_recv {
 
     unset req.http.Cookie;
@@ -46,6 +53,8 @@ sub vcl_recv {
         set req.backend_hint = v1_webascrazy_net;
     } else if (req.http.host ~ "^socketorior\.webascrazy\.net") {
         set req.backend_hint = socketorior_web;
+    } else if (req.http.host ~ "^rox\.webascrazy\.net") {
+        set req.backend_hint = rox_web;
     } else {
         set req.backend_hint = default;
     }
