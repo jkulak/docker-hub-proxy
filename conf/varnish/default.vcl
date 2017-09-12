@@ -55,6 +55,8 @@ sub vcl_recv {
         set req.backend_hint = socketorior_web;
     } else if (req.http.host ~ "^rox\.webascrazy\.net") {
         set req.backend_hint = rox_web;
+    } else if (req.http.host ~ "^roxbewith\.me") {
+        set req.backend_hint = rox_web;
     } else {
         set req.backend_hint = default;
     }
