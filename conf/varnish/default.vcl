@@ -57,6 +57,8 @@ sub vcl_recv {
         set req.backend_hint = rox_web;
     } else if (req.http.host ~ "^roxbewith\.me") {
         set req.backend_hint = rox_web;
+    } else if (req.http.host ~ "^www\.roxbewith\.me") {
+        set req.backend_hint = rox_web;
     } else {
         set req.backend_hint = default;
     }
