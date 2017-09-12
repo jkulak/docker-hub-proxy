@@ -37,7 +37,7 @@ backend socketorior_web {
 # rox.webascrazy.net backend
 backend rox_web {
 
-    .host = "172.17.0.8";
+    .host = "172.17.0.7";
     .port = "8033";
 }
 
