@@ -62,6 +62,9 @@ sub vcl_recv {
     } else {
         set req.backend_hint = default;
     }
+
+    # Do not cache anything
+    return(pass);
 }
 
 sub vcl_backend_response {
