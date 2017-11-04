@@ -9,35 +9,35 @@ backend default {
 # labs.webascrazy.net backend
 backend labs_web {
 
-    .host = "172.17.0.5";
+    .host = "172.17.0.6";
     .port = "80";
 }
 
 # lol-bot.webascrazy.net backend
 backend lol_slack_bot_web {
 
-    .host = "172.17.0.4";
+    .host = "172.17.0.3";
     .port = "8081";
 }
 
 # v1.webascrazy.net backend
 backend v1_webascrazy_net {
 
-    .host = "172.17.0.3";
+    .host = "172.17.0.5";
     .port = "80";
 }
 
 # socketorior.webascrazy.net backend
 backend socketorior_web {
 
-    .host = "172.17.0.6";
+    .host = "172.17.0.4";
     .port = "8080";
 }
 
 # rox.webascrazy.net backend
 backend rox_web {
 
-    .host = "172.17.0.7";
+    .host = "172.17.0.2";
     .port = "8033";
 }
 
